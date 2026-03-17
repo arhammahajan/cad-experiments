@@ -8,6 +8,7 @@ typedef struct {
 
 float degRad (float deg){
 	return (deg * PI)/180;
+}
 
 Matrix  matMul(Matrix m1, Matrix m2){
 	Matrix result = {{{0,0,0}, {0,0,0}, {0,0,0}}};
@@ -28,6 +29,19 @@ Matrix initMat(Matrix m1, int c){
 	}
 }
 
+Matrix printMat(Matrix m1){
+	printf("[ ");
+	for(int i = 0; i < 3; i++){
+		for(int j = 0; j < 3; j++){
+			printf("%d ", m1.data[i][j]);
+		}
+		if(i!=2){
+			printf("\n  ");
+		}
+		
+	}
+	printf(" ]\n");
+}
 
 Matrix translation(Matrix x, int tx, int ty){
 	Matrix t = {{ {1, 0, tx}, {0 ,1, ty}, {0, 0, 1} }};
@@ -43,7 +57,7 @@ Matrix scaling(Matrix x, int sx, int sy){
 }
 
 Matrix shearing(Matrix x, int shx, int shy){
-	Matrix t = {{ {1, Shx, 0}, {Shy, 1, 0}, {0, 0, 1} }};
+	Matrix t = {{ {1, shx, 0}, {shy, 1, 0}, {0, 0, 1} }};
 	Matrix result = matMul(t, x);
 	return result; 
 }
@@ -80,9 +94,5 @@ Matrix rotationZ(Matrix x, int alph){
 int main(){
 	Matrix m1 = {{{1, 1, 1}, {1, 1, 1}, {1, 1, 1}}};
 	Matrix result = scaling(m1, 5, 4);
-	for(int i = 0; i < 3; i++){
-		for(int j = 0; j < 3; j++){
-			printf("%d", result.data[i][j]);
-		}
-	}
+	printMat(result);
 }
